@@ -207,7 +207,11 @@ class Read:
                         v_b_wei_list.append((w1, w2, w3, 1 - w1 - w2 - w3))
 
             def col(is_short, is_byte):  # colours stored as b g r a
-                if is_short:
+                if is_short and is_byte:
+                    div_by = 255
+                    cols = read_byte_tuple(f, 4)
+                    alpha = read_int(f)
+                elif is_short:
                     div_by = 65535
                     cols = read_short_tuple(f, 4)
                 elif is_byte:
