@@ -1,5 +1,6 @@
 import bpy
 
+from .model_assets.collection import Collection
 from .model_assets.armature import Armature
 from .model_assets.materials import Material
 from .model_assets.mesh import Mesh
@@ -20,6 +21,7 @@ class Model:
             self.model_name_strip = self.model_name_strip[:-4]
         self.texture_names = nn.texture_names
         self.armature = None
+        self.collection = None
         self.material_list_blender = []
         self.obj_list = []
         self.material_in_next_block = []  # for srpc
@@ -32,6 +34,7 @@ class Model:
         message = "Making" + " " + self.model_name
         print(message + " " * (50 - len(message)) + "|")
 
+        console_out("Making Collection...", Collection.make_collection, self)
         console_out("Making Armature...", Armature.make_armature, self)
         console_out("Generating Names...", ModelUtil.make_names, self)
         console_out("Making Bones...", Armature.make_bones_type_1, self)
